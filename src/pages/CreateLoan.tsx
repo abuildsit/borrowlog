@@ -92,7 +92,7 @@ const CreateLoan = () => {
         description: description || null,
         photo_url: photoUrl,
         due_date: dueDate || null,
-        status: 'active',
+        status: 'Active',
         is_lending: isLending,
       });
       

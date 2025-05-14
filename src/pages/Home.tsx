@@ -36,9 +36,9 @@ const Home: React.FC = () => {
             onChange={(e) => applyFilters({ status: e.target.value as any })}
             options={[
               { value: 'all', label: 'All Statuses' },
-              { value: 'active', label: 'Active' },
-              { value: 'pending_return', label: 'Pending Return' },
-              { value: 'completed', label: 'Completed' }
+              { value: 'Active', label: 'Active' },
+              { value: 'Overdue', label: 'Overdue' },
+              { value: 'Returned', label: 'Returned' }
             ]}
           />
         </div>

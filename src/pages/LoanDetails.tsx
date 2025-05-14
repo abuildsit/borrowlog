@@ -65,9 +65,9 @@ const LoanDetails = () => {
     setUpdating(true);
     
     try {
-      // Update the loan status directly to completed with the return date
+      // Update the loan status directly to Returned with the return date
       const updates: Partial<Loan> = {
-        status: 'completed',
+        status: 'Returned',
         return_date: returnDate,
       };
       
@@ -143,14 +143,14 @@ const LoanDetails = () => {
                 <span className="mx-2 text-gray-300">•</span>
                 <span
                   className={`px-2 py-1 text-xs rounded-full ${
-                    loan.status === 'active'
+                    loan.status === 'Active'
                       ? 'bg-green-100 text-green-800'
-                      : loan.status === 'pending_return'
+                      : loan.status === 'Overdue'
                       ? 'bg-yellow-100 text-yellow-800'
                       : 'bg-gray-100 text-gray-800'
                   }`}
                 >
-                  {loan.status.replace('_', ' ')}
+                  {loan.status}
                 </span>
               </div>
             </div>
@@ -181,7 +181,7 @@ const LoanDetails = () => {
             )}
           </div>
           
-          {loan.status === 'completed' && loan.return_date && (
+          {loan.status === 'Returned' && loan.return_date && (
             <div className="mt-4">
               <h3 className="text-sm font-medium text-gray-700">Returned On</h3>
               <p className="mt-1 text-gray-600">
@@ -190,7 +190,7 @@ const LoanDetails = () => {
             </div>
           )}
           
-          {canUpdate && loan.status !== 'completed' && (
+          {canUpdate && loan.status !== 'Returned' && (
             <div className="mt-6 pt-6 border-t">
               <h3 className="text-sm font-medium text-gray-700 mb-3">Return Item</h3>
               

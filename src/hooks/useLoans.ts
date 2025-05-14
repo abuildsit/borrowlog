@@ -4,7 +4,7 @@ import { Loan } from '../types';
 import { useAuth } from '../context/AuthContext';
 
 type LoanFilters = {
-  status?: 'active' | 'pending_return' | 'completed' | 'all';
+  status?: 'Active' | 'Overdue' | 'Returned' | 'all';
   type?: 'lending' | 'borrowing' | 'all';
 };
 

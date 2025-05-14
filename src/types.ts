@@ -27,7 +27,7 @@ export interface Loan {
   description: string | null;
   photo_url: string;
   due_date: string | null;
-  status: 'active' | 'pending_return' | 'completed';
+  status: 'Active' | 'Overdue' | 'Returned';
   return_photo_url: string | null;
   return_date: string | null;
   is_lending: boolean;
