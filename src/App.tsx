@@ -1,0 +1,61 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import { AuthProvider, useAuth } from './context/AuthContext';
+
+// Pages
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import Contacts from './pages/Contacts';
+import CreateLoan from './pages/CreateLoan';
+import LoanDetails from './pages/LoanDetails';
+import Notifications from './pages/Notifications';
+
+// Components
+import Layout from './components/Layout';
+
+// Protected route component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user, loading } = useAuth();
+  
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+  
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+        <Toaster position="top-center" />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          
+          <Route path="/" element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="contacts" element={<Contacts />} />
+            <Route path="loans/create" element={<CreateLoan />} />
+            <Route path="loans/:id" element={<LoanDetails />} />
+            <Route path="notifications" element={<Notifications />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
+    </Router>
+  );
+}
+
+export default App; 
