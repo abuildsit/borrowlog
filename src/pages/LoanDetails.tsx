@@ -6,6 +6,12 @@ import { Loan, Contact } from '../types';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import Button from '../components/ui/Button';
+import StatusBadge from '../components/ui/StatusBadge';
+
+// Status constants
+const STATUS_ACTIVE = 1;
+const STATUS_OVERDUE = 2;
+const STATUS_RETURNED = 3;
 
 const LoanDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -65,9 +71,9 @@ const LoanDetails = () => {
     setUpdating(true);
     
     try {
-      // Update the loan status directly to Returned with the return date
+      // Update the loan status to the numeric "Returned" status with the return date
       const updates: Partial<Loan> = {
-        status: 'Returned',
+        status: STATUS_RETURNED,
         return_date: returnDate,
       };
       
@@ -141,17 +147,7 @@ const LoanDetails = () => {
                   {loan.is_lending ? 'Lending' : 'Borrowing'}
                 </span>
                 <span className="mx-2 text-gray-300">•</span>
-                <span
-                  className={`px-2 py-1 text-xs rounded-full ${
-                    loan.status === 'Active'
-                      ? 'bg-green-100 text-green-800'
-                      : loan.status === 'Overdue'
-                      ? 'bg-yellow-100 text-yellow-800'
-                      : 'bg-gray-100 text-gray-800'
-                  }`}
-                >
-                  {loan.status}
-                </span>
+                <StatusBadge status={loan.status} />
               </div>
             </div>
           </div>
@@ -181,7 +177,7 @@ const LoanDetails = () => {
             )}
           </div>
           
-          {loan.status === 'Returned' && loan.return_date && (
+          {loan.status === STATUS_RETURNED && loan.return_date && (
             <div className="mt-4">
               <h3 className="text-sm font-medium text-gray-700">Returned On</h3>
               <p className="mt-1 text-gray-600">
@@ -190,7 +186,7 @@ const LoanDetails = () => {
             </div>
           )}
           
-          {canUpdate && loan.status !== 'Returned' && (
+          {canUpdate && loan.status !== STATUS_RETURNED && (
             <div className="mt-6 pt-6 border-t">
               <h3 className="text-sm font-medium text-gray-700 mb-3">Return Item</h3>
               

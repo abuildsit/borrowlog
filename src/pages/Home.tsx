@@ -5,6 +5,11 @@ import LoanCard from '../components/ui/LoanCard';
 import FormField from '../components/ui/FormField';
 import Button from '../components/ui/Button';
 
+// Status constants
+const STATUS_ACTIVE = 1;
+const STATUS_OVERDUE = 2;
+const STATUS_RETURNED = 3;
+
 const Home: React.FC = () => {
   const { 
     loans, 
@@ -33,12 +38,12 @@ const Home: React.FC = () => {
             name="statusFilter"
             type="select"
             value={filters.status}
-            onChange={(e) => applyFilters({ status: e.target.value as any })}
+            onChange={(e) => applyFilters({ status: e.target.value === 'all' ? 'all' : Number(e.target.value) })}
             options={[
               { value: 'all', label: 'All Statuses' },
-              { value: 'Active', label: 'Active' },
-              { value: 'Overdue', label: 'Overdue' },
-              { value: 'Returned', label: 'Returned' }
+              { value: STATUS_ACTIVE.toString(), label: 'Active' },
+              { value: STATUS_OVERDUE.toString(), label: 'Overdue' },
+              { value: STATUS_RETURNED.toString(), label: 'Returned' }
             ]}
           />
         </div>

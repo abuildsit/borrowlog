@@ -5,6 +5,9 @@ import { createLoan, getContacts, uploadImage } from '../services/api';
 import { Contact } from '../types';
 import toast from 'react-hot-toast';
 
+// Status constants
+const STATUS_ACTIVE = 1;
+
 const CreateLoan = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -92,7 +95,7 @@ const CreateLoan = () => {
         description: description || null,
         photo_url: photoUrl,
         due_date: dueDate || null,
-        status: 'Active',
+        status: STATUS_ACTIVE,
         is_lending: isLending,
       });
       

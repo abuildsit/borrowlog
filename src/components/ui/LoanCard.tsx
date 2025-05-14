@@ -4,6 +4,9 @@ import { format, isPast } from 'date-fns';
 import { Loan } from '../../types';
 import StatusBadge from './StatusBadge';
 
+// Status constants
+const STATUS_RETURNED = 3;
+
 interface LoanCardProps {
   loan: Loan;
 }
@@ -41,7 +44,7 @@ const LoanCard: React.FC<LoanCardProps> = ({ loan }) => {
               <StatusBadge status={loan.status} />
             </div>
           </div>
-          {loan.status === 'Returned' && loan.return_date ? (
+          {loan.status === STATUS_RETURNED && loan.return_date ? (
             <p className="text-xs mt-2 text-gray-500">
               Returned: {format(new Date(loan.return_date), 'MMM d, yyyy')}
             </p>
