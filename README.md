@@ -6,7 +6,7 @@ A web application to help users track items they lend and borrow from others. Bu
 
 - **User Authentication**: Email/password login using Supabase Auth
 - **Item Loan Management**: Track items you've lent or borrowed
-- **Dashboard**: View and filter your active, pending, and completed loans
+- **Home**: View and filter your active, pending, and completed loans
 - **Return Process**: Request returns and document item condition
 - **Contact Management**: Manage a list of people you lend to or borrow from
 - **Notifications**: Stay updated on due dates and return requests

@@ -46,8 +46,8 @@ const Layout = () => {
                   isActive('/') ? 'text-blue-600 font-medium' : 'text-gray-600'
                 }`}
               >
-                <span className="material-icons">dashboard</span>
-                <span className="text-xs mt-1">Dashboard</span>
+                <span className="material-icons">home</span>
+                <span className="text-xs mt-1">Home</span>
               </Link>
             </li>
             <li>

@@ -100,7 +100,7 @@ const LoanDetails = () => {
           onClick={() => navigate('/')}
           className="mt-4 text-blue-600 hover:text-blue-500"
         >
-          Go back to Dashboard
+          Go back to Home
         </button>
       </div>
     );
@@ -117,7 +117,7 @@ const LoanDetails = () => {
           className="text-blue-600 hover:text-blue-500 flex items-center"
         >
           <span className="material-icons mr-1 text-sm">arrow_back</span>
-          Back to Dashboard
+          Back to Home
         </button>
       </div>
       

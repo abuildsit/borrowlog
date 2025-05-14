@@ -5,7 +5,7 @@ import LoanCard from '../components/ui/LoanCard';
 import FormField from '../components/ui/FormField';
 import Button from '../components/ui/Button';
 
-const Dashboard: React.FC = () => {
+const Home: React.FC = () => {
   const { 
     loans, 
     loading, 
@@ -77,4 +77,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard; 
+export default Home; 

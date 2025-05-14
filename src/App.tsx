@@ -6,7 +6,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 // Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Contacts from './pages/Contacts';
 import CreateLoan from './pages/CreateLoan';
@@ -45,7 +45,7 @@ function App() {
               <Layout />
             </ProtectedRoute>
           }>
-            <Route index element={<Dashboard />} />
+            <Route index element={<Home />} />
             <Route path="profile" element={<Profile />} />
             <Route path="contacts" element={<Contacts />} />
             <Route path="loans/create" element={<CreateLoan />} />
