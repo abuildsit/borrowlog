@@ -66,7 +66,7 @@ CREATE TABLE loans (
   description TEXT,
   photo_url TEXT NOT NULL,
   due_date TIMESTAMP WITH TIME ZONE,
-  status INTEGER NOT NULL CHECK (status IN (1, 2, 3)),
+  status INTEGER NOT NULL CHECK (status IN (1, 2, 3, 4)),
   return_photo_url TEXT,
   return_date TIMESTAMP WITH TIME ZONE,
   is_lending BOOLEAN NOT NULL

@@ -2,14 +2,16 @@
 export enum LoanStatus {
   ACTIVE = 1,
   OVERDUE = 2,
-  RETURNED = 3
+  RETURNED = 3,
+  LOST = 4
 }
 
 // Display labels - completely separate from enum names
 export const statusLabels: Record<number, string> = {
   [LoanStatus.ACTIVE]: 'Active',
   [LoanStatus.OVERDUE]: 'Overdue',
-  [LoanStatus.RETURNED]: 'Returned'
+  [LoanStatus.RETURNED]: 'Returned',
+  [LoanStatus.LOST]: 'Lost'
 };
 
 export const getLoanStatusLabel = (status: number): string => {

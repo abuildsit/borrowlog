@@ -2,13 +2,22 @@ import { useState, useEffect } from 'react';
 import { getLoans, getLoanById, createLoan, updateLoan, deleteLoan } from '../services/api';
 import { Loan } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { LoanStatus } from '../constants/loanStatus';
+
+// Default filters to show Active and Overdue items
+const DEFAULT_STATUS_FILTERS = [LoanStatus.ACTIVE, LoanStatus.OVERDUE];
 
 type LoanFilters = {
-  status?: number | 'all';
+  statusFilters: number[] | 'all';
   type?: 'lending' | 'borrowing' | 'all';
 };
 
-export const useLoans = (initialFilters: LoanFilters = { status: 'all', type: 'all' }) => {
+export const useLoans = (
+  initialFilters: LoanFilters = { 
+    statusFilters: DEFAULT_STATUS_FILTERS, 
+    type: 'all' 
+  }
+) => {
   const { user } = useAuth();
   const [loans, setLoans] = useState<Loan[]>([]);
   const [filteredLoans, setFilteredLoans] = useState<Loan[]>([]);
@@ -43,8 +52,10 @@ export const useLoans = (initialFilters: LoanFilters = { status: 'all', type: 'a
     let result = [...loans];
     
     // Apply status filter
-    if (filters.status && filters.status !== 'all') {
-      result = result.filter(loan => loan.status === filters.status);
+    if (filters.statusFilters !== 'all' && filters.statusFilters.length > 0) {
+      // Use type assertion to tell TypeScript this is a number array
+      const statusArray = filters.statusFilters as number[];
+      result = result.filter(loan => statusArray.includes(loan.status));
     }
     
     // Apply type filter
@@ -141,6 +152,7 @@ export const useLoans = (initialFilters: LoanFilters = { status: 'all', type: 'a
     updateLoan: updateLoanItem,
     removeLoan,
     applyFilters,
-    refresh
+    refresh,
+    DEFAULT_STATUS_FILTERS
   };
 }; 

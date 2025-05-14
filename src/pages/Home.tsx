@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLoans } from '../hooks/useLoans';
 import LoanCard from '../components/ui/LoanCard';
-import FormField from '../components/ui/FormField';
-import Button from '../components/ui/Button';
+import MultiSelectDropdown from '../components/ui/MultiSelectDropdown';
 
 // Status constants
 const STATUS_ACTIVE = 1;
@@ -15,8 +14,17 @@ const Home: React.FC = () => {
     loans, 
     loading, 
     filters, 
-    applyFilters 
+    applyFilters,
+    DEFAULT_STATUS_FILTERS
   } = useLoans();
+
+  const handleStatusChange = (selectedStatuses: number[]) => {
+    applyFilters({ ...filters, statusFilters: selectedStatuses });
+  };
+
+  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    applyFilters({ ...filters, type: e.target.value as any });
+  };
 
   if (loading) {
     return <div className="flex justify-center items-center py-20">Loading...</div>;
@@ -27,45 +35,38 @@ const Home: React.FC = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Your Loans</h1>
         <Link to="/loans/create">
-          <Button variant="primary" size="sm">Add New Loan</Button>
+          <button 
+            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
+          >
+            Add New Loan
+          </button>
         </Link>
       </div>
 
-      <div className="flex flex-wrap gap-4 pb-2">
-        <div className="w-40">
-          <FormField
-            label="Status"
-            name="statusFilter"
-            type="select"
-            value={filters.status}
-            onChange={(e) => applyFilters({ status: e.target.value === 'all' ? 'all' : Number(e.target.value) })}
-            options={[
-              { value: 'all', label: 'All Statuses' },
-              { value: STATUS_ACTIVE.toString(), label: 'Active' },
-              { value: STATUS_OVERDUE.toString(), label: 'Overdue' },
-              { value: STATUS_RETURNED.toString(), label: 'Returned' }
-            ]}
-          />
-        </div>
-
-        <div className="w-40">
-          <FormField
-            label="Type"
-            name="typeFilter"
-            type="select"
+      <div className="flex flex-wrap gap-6">
+        <div className="w-64">
+          <select
+            id="type-filter"
+            className="w-full border border-gray-300 rounded px-4 py-2 text-sm font-medium text-gray-700"
             value={filters.type}
-            onChange={(e) => applyFilters({ type: e.target.value as any })}
-            options={[
-              { value: 'all', label: 'All Types' },
-              { value: 'lending', label: 'Lending' },
-              { value: 'borrowing', label: 'Borrowing' }
-            ]}
+            onChange={handleTypeChange}
+          >
+            <option value="all">All Types</option>
+            <option value="lending">Lending</option>
+            <option value="borrowing">Borrowing</option>
+          </select>
+        </div>
+        
+        <div className="w-64">
+          <MultiSelectDropdown
+            selectedValues={filters.statusFilters === 'all' ? [] : filters.statusFilters}
+            onChange={handleStatusChange}
           />
         </div>
       </div>
 
       {loans.length === 0 ? (
-        <div className="text-center py-8 bg-gray-50 rounded-lg">
+        <div className="text-center py-8 bg-white rounded-lg">
           <p className="text-gray-500">No loans found</p>
           <p className="text-gray-500 mt-1 text-sm">
             Get started by adding a new loan
